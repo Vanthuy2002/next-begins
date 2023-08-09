@@ -11,7 +11,7 @@ const MainLayout = ({ children }: LayoutMainProps) => {
       <Navbar />
       <section className='grid grid-cols-[250px_minmax(0,1fr)] min-h-[calc(100vh-80px)]'>
         <SideBar />
-        <div>{children}</div>
+        <section className='p-3'>{children}</section>
       </section>
     </main>
   );

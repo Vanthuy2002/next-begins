@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 
 const SideBar = () => {
   const path = usePathname();
+
   return (
     <article className='px-4 py-6'>
       <Flexbox className='flex-col !items-start gap-2'>

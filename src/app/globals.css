@@ -5,6 +5,10 @@
 body {
   @apply font-normal font-primary;
 }
+
+body img {
+  height: 100%;
+}
 input {
   font-family: inherit;
 }
