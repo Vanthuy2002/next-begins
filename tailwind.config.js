@@ -11,6 +11,11 @@ module.exports = {
       fontFamily: {
         primary: ['Manrope'],
       },
+      colors: {
+        grayF4: '#f4f4f4',
+        grayFC: '#fcfcfc',
+        primary: '#11142d',
+      },
     },
   },
   plugins: [],

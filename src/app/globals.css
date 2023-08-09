@@ -3,5 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply font-primary font-normal;
+  @apply font-normal font-primary;
+}
+input {
+  font-family: inherit;
 }
