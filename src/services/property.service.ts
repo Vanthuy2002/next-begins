@@ -23,4 +23,14 @@ const createProducts = async (values: Partial<IApiTypes> | undefined) => {
   }
 };
 
-export { getProductsFromApi, createProducts };
+const getDetailsProduct = async (id: number) => {
+  try {
+    const res = await api.get<IApiTypes | undefined | null>(`/products/${id}`);
+    const product = res.data;
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { getProductsFromApi, createProducts, getDetailsProduct };

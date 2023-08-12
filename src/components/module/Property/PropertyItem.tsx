@@ -11,6 +11,7 @@ interface Child {
 }
 
 const PropertyItem = ({ item }: Child) => {
+  if (!item) return null;
   return (
     <div className='flex gap-[10px]'>
       <Link
@@ -22,7 +23,7 @@ const PropertyItem = ({ item }: Child) => {
           width={`${200}`}
           height={125}
           className='object-cover rounded-md h-[125px]'
-          src={'https://source.unsplash.com/random'}
+          src={item.thumbnail as string}
         />
       </Link>
 

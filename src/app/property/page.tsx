@@ -1,16 +1,16 @@
 'use client';
-import Loading from '@/Effect/Loading';
-import MainLayout from '@/components/Layout';
-import Flexbox from '@/components/Layout/Flex';
-import { PropertyItem } from '@/components/module/Property';
-import { Typography } from '@/components/module/Typography';
-import { getProductsFromApi } from '@/services/property.service';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import React from 'react';
+import MainLayout from '@/components/Layout';
+import Loading from '@/Effect/Loading';
+import Flexbox from '@/components/Layout/Flex';
+import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { Typography } from '@/components/module/Typography';
+import { PropertyItem } from '@/components/module/Property';
+import { getProductsFromApi } from '@/services/property.service';
 
 const BlogPage = () => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: getProductsFromApi,
     staleTime: 60 * 1000,
@@ -33,16 +33,14 @@ const BlogPage = () => {
       </Flexbox>
 
       {isLoading ? (
-        <Loading></Loading>
+        <Loading />
       ) : (
         <Flexbox className='p-5 bg-white rounded-2xl'>
           <div className='filter'></div>
           <div className='grid grid-cols-2 gap-x-16 gap-y-6'>
             {data &&
               data?.length > 0 &&
-              data?.map((item) => (
-                <PropertyItem item={item} key={item?.id}></PropertyItem>
-              ))}
+              data?.map((item) => <PropertyItem item={item} key={item?.id} />)}
           </div>
         </Flexbox>
       )}
