@@ -6,9 +6,10 @@ import { StarIcon } from '@/components/Icon';
 
 interface Child {
   children?: React.ReactNode;
+  item: IApiTypes;
 }
 
-const PropertyItem = ({ children }: Child) => {
+const PropertyItem = ({ children, item }: Child) => {
   return (
     <div className='flex gap-[10px]'>
       <div className='relative flex-shrink-0'>
@@ -24,12 +25,12 @@ const PropertyItem = ({ children }: Child) => {
       <div className='flex-1'>
         <Typography
           as='span'
-          className='inline-block text-sm p-2 mb-3 rounded-md bg-blue-400 text-blue-700 font-semibold'
+          className='inline-block p-2 mb-3 text-sm font-semibold text-blue-700 bg-blue-400 rounded-md'
         >
-          7400$
+          {item.price}$
         </Typography>
-        <Typography className='font-semibold mb-2' as='h3'>
-          Metro Jakactar Hotel Intere
+        <Typography className='mb-2 font-semibold' as='h3'>
+          {item.title}
         </Typography>
 
         <Flexbox className='gap-1'>
@@ -37,7 +38,7 @@ const PropertyItem = ({ children }: Child) => {
             <StarIcon></StarIcon>
           </span>
           <Typography className='text-gray-400' as='h3'>
-            Lorem ipsum dolor sit, amet consectetur
+            {item.description}
           </Typography>
         </Flexbox>
       </div>

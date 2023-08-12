@@ -1,4 +1,5 @@
 import { DashIcon, PropertyIcon, StarIcon, UserIcon } from '@/components/Icon';
+import axios from 'axios';
 import React from 'react';
 
 const getUUID = (): string => crypto.randomUUID();
@@ -17,3 +18,7 @@ export const sideBarMenus: SidebarItemsProps[] = [
   { id: getUUID(), title: 'Reviews', to: '/reviews', icon: StarIcon() },
   { id: getUUID(), title: 'My Profile', to: '/me', icon: UserIcon() },
 ];
+
+export const api = axios.create({
+  baseURL: 'https://dummyjson.com/',
+});
