@@ -3,16 +3,17 @@ import React from 'react';
 import { Typography } from '../Typography';
 import Flexbox from '@/components/Layout/Flex';
 import { StarIcon } from '@/components/Icon';
+import Link from 'next/link';
 
 interface Child {
   children?: React.ReactNode;
   item: IApiTypes;
 }
 
-const PropertyItem = ({ children, item }: Child) => {
+const PropertyItem = ({ item }: Child) => {
   return (
     <div className='flex gap-[10px]'>
-      <div className='relative flex-shrink-0'>
+      <Link href={`/property/${item.id}`} className='relative flex-shrink-0'>
         <Image
           alt='setup'
           width={`${200}`}
@@ -20,7 +21,7 @@ const PropertyItem = ({ children, item }: Child) => {
           className='object-cover rounded-md h-[125px]'
           src={'https://source.unsplash.com/random'}
         />
-      </div>
+      </Link>
 
       <div className='flex-1'>
         <Typography
@@ -33,7 +34,7 @@ const PropertyItem = ({ children, item }: Child) => {
           {item.title}
         </Typography>
 
-        <Flexbox className='gap-1'>
+        <Flexbox className='gap-1 !items-start'>
           <span>
             <StarIcon></StarIcon>
           </span>
