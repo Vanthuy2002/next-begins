@@ -11,3 +11,7 @@ interface IApiTypes {
   thumbnail: string;
   images: string[];
 }
+
+type IEvents = React.ChangeEvent<
+  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+>;

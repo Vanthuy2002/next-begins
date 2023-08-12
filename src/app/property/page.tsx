@@ -1,22 +1,22 @@
 'use client';
+import Loading from '@/Effect/Loading';
 import MainLayout from '@/components/Layout';
 import Flexbox from '@/components/Layout/Flex';
 import { PropertyItem } from '@/components/module/Property';
 import { Typography } from '@/components/module/Typography';
-import React, { useEffect, useState } from 'react';
-import { api } from '@/utils/constant';
+import { getProductsFromApi } from '@/services/property.service';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 const BlogPage = () => {
-  const [data, setData] = useState<IApiTypes[]>([]);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProductsFromApi,
+    staleTime: 60 * 1000,
+  });
 
-  const getProperty = async () => {
-    const res = await api.get(`/products?limit=10`);
-    const results: IApiTypes[] = res.data.products;
-    setData(results);
-  };
-  useEffect(() => {
-    getProperty();
-  }, []);
+  const routes = useRouter();
 
   return (
     <MainLayout>
@@ -24,20 +24,28 @@ const BlogPage = () => {
         <Typography className='font-bold text-[25px]' as='h1'>
           Property
         </Typography>
-        <button className='px-5 py-3 font-medium text-white bg-purple-500 rounded-lg font-sm'>
+        <button
+          onClick={() => routes.push('/property/create')}
+          className='px-5 py-3 font-medium text-white bg-purple-500 rounded-lg font-sm'
+        >
           + Add Property
         </button>
       </Flexbox>
 
-      <Flexbox className='p-5 bg-white rounded-2xl'>
-        <div className='filter'></div>
-        <div className='grid grid-cols-2 gap-x-16 gap-y-6'>
-          {data.length > 0 &&
-            data.map((item) => (
-              <PropertyItem item={item} key={item.id}></PropertyItem>
-            ))}
-        </div>
-      </Flexbox>
+      {isLoading ? (
+        <Loading></Loading>
+      ) : (
+        <Flexbox className='p-5 bg-white rounded-2xl'>
+          <div className='filter'></div>
+          <div className='grid grid-cols-2 gap-x-16 gap-y-6'>
+            {data &&
+              data?.length > 0 &&
+              data?.map((item) => (
+                <PropertyItem item={item} key={item?.id}></PropertyItem>
+              ))}
+          </div>
+        </Flexbox>
+      )}
 
       <Flexbox className='justify-between'>
         <Typography className='text-gray-500'>
@@ -45,13 +53,16 @@ const BlogPage = () => {
         </Typography>
         {/* pagination */}
         <Flexbox className='gap-[10px]'>
-          {Array(6)
+          {Array(2)
             .fill(0)
-            .map((_, index) => (
-              <button key={index} className='bg-blue-400 rounded-md w-9 h-9'>
-                {index + 1}
-              </button>
-            ))}
+            .map((_, index) => {
+              const active = index === 0 ? 'bg-blue-500' : 'bg-white';
+              return (
+                <button key={index} className={`rounded-md w-9 h-9 ${active}`}>
+                  {index + 1}
+                </button>
+              );
+            })}
         </Flexbox>
       </Flexbox>
     </MainLayout>

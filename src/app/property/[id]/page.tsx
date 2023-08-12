@@ -1,6 +1,6 @@
 'use client';
 import MainLayout from '@/components/Layout';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import React from 'react';
 
 const DetailsPages = () => {
