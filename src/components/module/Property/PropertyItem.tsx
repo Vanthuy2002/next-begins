@@ -6,7 +6,6 @@ import { StarIcon } from '@/components/Icon';
 import Link from 'next/link';
 
 interface Child {
-  children?: React.ReactNode;
   item: Partial<IApiTypes> | undefined;
 }
 
@@ -42,7 +41,7 @@ const PropertyItem = ({ item }: Child) => {
           <span>
             <StarIcon></StarIcon>
           </span>
-          <Typography className='text-gray-400' as='h3'>
+          <Typography className='text-gray-400 truncate-text' as='h3'>
             {item?.description}
           </Typography>
         </Flexbox>

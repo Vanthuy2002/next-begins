@@ -1,5 +1,6 @@
 'use client';
 import Loading from '@/Effect/Loading';
+import Button from '@/components/Button';
 import MainLayout from '@/components/Layout';
 import Flexbox from '@/components/Layout/Flex';
 import Star from '@/components/Star';
@@ -32,7 +33,7 @@ const DetailsPages = () => {
             <Image
               width={100}
               height={100}
-              className='object-cover w-full rounded-lg h-96 md:h-auto md:w-48 md:rounded-lg'
+              className='object-cover w-full rounded-lg h-full md:rounded-lg'
               src={data?.thumbnail as string}
               alt={data?.title as string}
             />
@@ -55,9 +56,7 @@ const DetailsPages = () => {
                 >
                   ${data?.price}
                 </Typography>
-                <button className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                  Add to cart
-                </button>
+                <Button>Add to cart</Button>
               </Flexbox>
             </div>
           </section>
