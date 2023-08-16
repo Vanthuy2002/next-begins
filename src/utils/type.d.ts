@@ -15,3 +15,10 @@ interface IApiTypes {
 type IEvents = React.ChangeEvent<
   HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 >;
+
+interface IDataResponse {
+  limit: number;
+  total: number;
+  products: IApiTypes[];
+  skip: number;
+}

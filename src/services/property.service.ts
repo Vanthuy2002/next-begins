@@ -1,10 +1,17 @@
 import { api } from '@/utils/constant';
 
-const getProductsFromApi = async () => {
+const getProductsFromApi = async (
+  values = '',
+  limit = 50,
+  isCategory = false
+) => {
   try {
-    const res = await api.get('/products?limit=10');
-    const products: Partial<IApiTypes[] | []> = res.data.products;
-    return products;
+    const res = await api.get<IDataResponse>(
+      isCategory
+        ? `/products/category/${values}`
+        : `/products/search?q=${values}&limit=${limit}`
+    );
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -27,6 +34,7 @@ const getDetailsProduct = async (id: number) => {
   try {
     const res = await api.get<IApiTypes | undefined | null>(`/products/${id}`);
     const product = res.data;
+
     return product;
   } catch (error) {
     console.log(error);
