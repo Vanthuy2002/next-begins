@@ -12,16 +12,18 @@ import { SearchIcons } from '@/components/Icon';
 import Dropdown from '@/components/Dropdown';
 import { capitalize, dataDrops } from '@/utils/constant';
 import { useDebounce } from '@/hooks/useDebounce';
+import Button from '@/components/Button';
 
 const BlogPage = () => {
+  const [limit, setLimit] = useState(5);
   const [filter, setFilter] = useState<string>('');
   const debouncedValue = useDebounce<string>(filter, 1000);
   const [select, setSelected] = useState<string>('');
   const [isTrue, setIsTrue] = useState<boolean>(false);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['products', debouncedValue || select],
-    queryFn: () => getProductsFromApi(debouncedValue || select, 50, isTrue),
+    queryKey: ['products', debouncedValue || select, isTrue, limit],
+    queryFn: () => getProductsFromApi(debouncedValue || select, limit, isTrue),
     staleTime: 1000 * 60 * 1,
   });
 
@@ -38,6 +40,10 @@ const BlogPage = () => {
     setSelected(e.target.getAttribute('data-value'));
   };
 
+  const loadMoreProducts = () => {
+    setLimit((prev) => prev + 5);
+  };
+
   return (
     <MainLayout>
       <Flexbox className='justify-between'>
@@ -52,7 +58,7 @@ const BlogPage = () => {
         </button>
       </Flexbox>
 
-      <Flexbox className='gap-8 flex-wrap'>
+      <Flexbox className='flex-wrap gap-8'>
         {/* Search */}
         <Flexbox className='p-[10px] my-4 rounded-md bg-grayF4 max-w-[300px] gap-3'>
           <SearchIcons />
@@ -87,23 +93,14 @@ const BlogPage = () => {
         </Flexbox>
       )}
 
-      <Flexbox className='justify-between'>
+      <Flexbox className='justify-between mt-3'>
         <Typography className='text-gray-500'>
           Showing {data?.products.length} to {data?.total} properties
         </Typography>
-        {/* pagination */}
-        <Flexbox className='gap-[10px]'>
-          {Array(2)
-            .fill(0)
-            .map((_, index) => {
-              const active = index === 0 ? 'bg-blue-500' : 'bg-white';
-              return (
-                <button key={index} className={`rounded-md w-9 h-9 ${active}`}>
-                  {index + 1}
-                </button>
-              );
-            })}
-        </Flexbox>
+        {/* Loadmore */}
+        <Button onClick={loadMoreProducts} disabled={isLoading} size='md'>
+          {isLoading ? 'Loading...' : 'Load More'}
+        </Button>
       </Flexbox>
     </MainLayout>
   );

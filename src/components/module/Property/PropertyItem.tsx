@@ -14,7 +14,7 @@ const PropertyItem = ({ item }: Child) => {
   return (
     <div className='flex gap-[10px]'>
       <Link
-        href={`/property/${item?.id}?query=${item?.title}`}
+        href={`/property/${item?.id}?q=${item?.title}`}
         className='relative flex-shrink-0'
       >
         <Image

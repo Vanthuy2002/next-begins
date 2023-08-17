@@ -2,7 +2,7 @@ import { api } from '@/utils/constant';
 
 const getProductsFromApi = async (
   values = '',
-  limit = 50,
+  limit = 0,
   isCategory = false
 ) => {
   try {
