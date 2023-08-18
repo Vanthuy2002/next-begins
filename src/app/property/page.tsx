@@ -1,5 +1,5 @@
 'use client';
-import React, { ButtonHTMLAttributes, useState } from 'react';
+import React, { useState } from 'react';
 import MainLayout from '@/components/Layout';
 import Loading from '@/Effect/Loading';
 import Flexbox from '@/components/Layout/Flex';
@@ -13,6 +13,9 @@ import Dropdown from '@/components/Dropdown';
 import { capitalize, dataDrops } from '@/utils/constant';
 import { useDebounce } from '@/hooks/useDebounce';
 import Button from '@/components/Button';
+import { Menu } from '@headlessui/react';
+
+const createUUID = () => crypto.randomUUID();
 
 const BlogPage = () => {
   const [limit, setLimit] = useState(5);
@@ -24,7 +27,6 @@ const BlogPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['products', debouncedValue || select, isTrue, limit],
     queryFn: () => getProductsFromApi(debouncedValue || select, limit, isTrue),
-    staleTime: 1000 * 60 * 1,
   });
 
   const routes = useRouter();
@@ -35,9 +37,9 @@ const BlogPage = () => {
     setFilter(e.target.value);
   };
 
-  const handleSelect = (e) => {
+  const handleSelect = (values: string) => {
     setIsTrue(true);
-    setSelected(e.target.getAttribute('data-value'));
+    setSelected(values);
   };
 
   const loadMoreProducts = () => {
@@ -73,9 +75,18 @@ const BlogPage = () => {
 
         {/* Dropdown */}
         <Dropdown
-          onClick={handleSelect}
           selected={capitalize(select) || 'More Options'}
           data={dataDrops}
+          renderItem={(item) => (
+            <Menu.Item key={createUUID()}>
+              <button
+                className='flex items-center w-full px-3 py-2 text-sm rounded-md group hover:bg-blue-600 hover:text-white'
+                onClick={() => handleSelect(item.value)}
+              >
+                {item.name}
+              </button>
+            </Menu.Item>
+          )}
         />
       </Flexbox>
 
@@ -95,7 +106,7 @@ const BlogPage = () => {
 
       <Flexbox className='justify-between mt-3'>
         <Typography className='text-gray-500'>
-          Showing {data?.products.length} to {data?.total} properties
+          Showing {productsData?.length} to {data?.total} properties
         </Typography>
         {/* Loadmore */}
         <Button onClick={loadMoreProducts} disabled={isLoading} size='md'>
