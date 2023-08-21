@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -5,8 +6,13 @@ import { Typography } from '../module/Typography';
 import { SearchIcons } from '../Icon';
 import Flexbox from '../Layout/Flex';
 import UserInfo from '../User';
+import { UserButton, useAuth } from '@clerk/nextjs';
+import Button from '../Button';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+  const { userId } = useAuth();
+  const router = useRouter();
   return (
     <header className='flex items-center justify-between px-5 py-4'>
       <Flexbox className='gap-[82px]'>
@@ -25,7 +31,13 @@ const Navbar = () => {
           />
         </Flexbox>
       </Flexbox>
-      <UserInfo></UserInfo>
+      {userId ? (
+        <UserInfo />
+      ) : (
+        <Button onClick={() => router.push('/sign-in')} variant='primary'>
+          Get Started
+        </Button>
+      )}
     </header>
   );
 };
