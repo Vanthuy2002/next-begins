@@ -1,3 +1,4 @@
+import ProgressBar from '@/Effect/Progress';
 import MainLayout from '@/components/Layout';
 
 export default function Home() {

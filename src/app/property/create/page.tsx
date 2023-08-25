@@ -1,4 +1,5 @@
 'use client';
+import ProgressBar from '@/Effect/Progress';
 import MainLayout from '@/components/Layout';
 import { createProducts } from '@/services/property.service';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

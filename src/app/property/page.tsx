@@ -14,6 +14,7 @@ import { capitalize, dataDrops } from '@/utils/constant';
 import { useDebounce } from '@/hooks/useDebounce';
 import Button from '@/components/Button';
 import { Menu } from '@headlessui/react';
+import ProgressBar from '@/Effect/Progress';
 
 const createUUID = () => crypto.randomUUID();
 

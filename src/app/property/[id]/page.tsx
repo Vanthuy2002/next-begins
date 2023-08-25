@@ -1,5 +1,6 @@
 'use client';
 import Loading from '@/Effect/Loading';
+import ProgressBar from '@/Effect/Progress';
 import Button from '@/components/Button';
 import MainLayout from '@/components/Layout';
 import Flexbox from '@/components/Layout/Flex';
